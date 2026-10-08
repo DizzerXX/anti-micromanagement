@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property string $name
  * @property ?string $description
  * @property bool $is_pinned
- * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property ?Carbon $archived_at
  */
 class Project extends Model
 {

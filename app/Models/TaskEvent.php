@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\LocalDate;
-
 use App\Enums\TaskStatus;
 use Database\Factories\TaskEventFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * Append-only history row. Never updated; only TaskStatusService::undo()
@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property ?TaskStatus $from_status
  * @property TaskStatus $to_status
  * @property ?string $note
- * @property \Illuminate\Support\Carbon $logged_for
- * @property \Illuminate\Support\Carbon $created_at
+ * @property Carbon $logged_for
+ * @property Carbon $created_at
  * @property-read Task $task
  */
 class TaskEvent extends Model

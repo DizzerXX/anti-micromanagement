@@ -38,4 +38,21 @@ final readonly class HeadlineMetric
             0 => '=',
         };
     }
+
+    /**
+     * "+2", "−1" (true minus sign), "0".
+     */
+    public function signedDelta(): string
+    {
+        return self::signed($this->delta());
+    }
+
+    public static function signed(int $value): string
+    {
+        return match ($value <=> 0) {
+            1 => '+'.$value,
+            -1 => '−'.abs($value),
+            0 => '0',
+        };
+    }
 }

@@ -125,8 +125,7 @@ class AppPanelProvider extends PanelProvider
                 NavigationItem::make('Projects')
                     ->icon('ledger-folder')
                     ->url(fn (): string => ProjectResource::getUrl())
-                    ->isActiveWhen(fn (): bool => request()->routeIs(ProjectResource::getRouteBaseName().'.*')
-                        && ! $pinned->contains(fn (Project $p): bool => $this->isViewing($p))),
+                    ->isActiveWhen(fn (): bool => request()->routeIs(ProjectResource::getRouteBaseName().'.*')),
                 NavigationItem::make('Reports')
                     ->icon('ledger-report')
                     ->url(fn (): string => Reports::getUrl())

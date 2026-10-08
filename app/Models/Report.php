@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\LocalDate;
-
 use App\Enums\PeriodType;
 use App\Enums\ReportFile;
 use App\Enums\ReportStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property PeriodType $period_type
- * @property \Illuminate\Support\Carbon $start_date
- * @property \Illuminate\Support\Carbon $end_date
- * @property \Illuminate\Support\Carbon $effective_end_date
+ * @property Carbon $start_date
+ * @property Carbon $end_date
+ * @property Carbon $effective_end_date
  * @property ?int $project_id
  * @property list<string> $sections
  * @property list<string> $files
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property ?string $xlsx_path
  * @property ReportStatus $status
  * @property ?string $error
- * @property \Illuminate\Support\Carbon $created_at
+ * @property Carbon $created_at
  * @property-read ?Project $project
  */
 class Report extends Model

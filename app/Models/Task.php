@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Casts\LocalDate;
-
 use App\Enums\TaskStatus;
 use Database\Factories\TaskFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,15 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $project_id
  * @property ?int $module_id
  * @property string $title
- * @property ?\Illuminate\Support\Carbon $due_date
+ * @property ?Carbon $due_date
  * @property TaskStatus $current_status
- * @property \Illuminate\Support\Carbon $last_logged_for
+ * @property Carbon $last_logged_for
  * @property-read Project $project
  * @property-read ?Module $module
  */

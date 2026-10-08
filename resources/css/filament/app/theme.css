@@ -208,6 +208,16 @@ html.fi,
     justify-content: space-between;
 }
 
+/* A pinned project being viewed is bold; "Projects" carries the active bar. */
+.fi-sidebar-group:has(> .fi-sidebar-group-btn) .fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background: transparent;
+    box-shadow: none;
+}
+
+.fi-sidebar-group:has(> .fi-sidebar-group-btn) .fi-sidebar-item.fi-active > .fi-sidebar-item-btn:hover {
+    background: var(--color-sunk);
+}
+
 .fi-sidebar-group .fi-sidebar-item-grouped-border {
     display: none;
 }
@@ -1048,9 +1058,12 @@ html.fi,
 }
 
 .ld-filter select {
+    width: auto;
     font-weight: 500;
     color: var(--color-ink);
-    padding-right: 4px;
+    padding: 0 18px 0 0;
+    background-position: right 0 center;
+    background-size: 14px;
 }
 
 .ld-filter-select {
@@ -1181,8 +1194,17 @@ html.fi,
 }
 
 .ld-blocker-line {
+    display: block;
+    max-width: 32ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--status-blocked-strong);
     font-size: var(--text-13);
+}
+
+.ld-pull-up {
+    margin-top: -8px;
 }
 
 .ld-table-empty td {
@@ -2011,8 +2033,16 @@ html.fi,
 }
 
 .fi-ta-text-item-label,
-.fi-ta-cell {
+.fi-ta-text-item,
+.fi-ta-cell,
+.fi-ta-header-cell,
+.fi-ta-header-cell-label {
     font-size: var(--text-14);
+    line-height: var(--leading-14);
+}
+
+.fi-ta-text-item-label {
+    color: var(--color-ink);
 }
 
 .fi-input-wrp {
