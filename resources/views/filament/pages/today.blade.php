@@ -138,7 +138,7 @@
                             @endforeach
                         </div>
                         @if ($due['more'])
-                            <a href="{{ \App\Filament\Resources\Projects\ProjectResource::getUrl('index') }}" class="ld-link">Show all</a>
+                            <a href="{{ \App\Filament\Resources\Tasks\TaskResource::getUrl() }}" class="ld-link">Show all</a>
                         @endif
                     @endif
                 </section>

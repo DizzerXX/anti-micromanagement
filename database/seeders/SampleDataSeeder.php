@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Domain\Reports\ReportBuilder;
+use App\Domain\Reports\ReportGenerator;
+use App\Domain\Reports\ReportRequest;
+use App\Enums\PeriodType;
+use App\Enums\ReportFile;
+use App\Enums\ReportSection;
 use App\Models\Module;
 use App\Models\Project;
 use Carbon\CarbonImmutable;
@@ -28,6 +34,21 @@ class SampleDataSeeder extends Seeder
         $this->reportGenerator();
         $this->homeLab();
         $this->clientPortal();
+        $this->lastWeeksReport();
+    }
+
+    /**
+     * Today.html shows "Weekly · 28 Sep – 4 Oct, Generated Mon 5 Oct, 09:02".
+     */
+    private function lastWeeksReport(): void
+    {
+        $builder = app(ReportBuilder::class);
+        $period = $builder->period(PeriodType::Weekly, CarbonImmutable::parse($this->at('2026-10-01')));
+
+        app(ReportGenerator::class)->generate(
+            new ReportRequest($period, null, ReportSection::cases(), ReportFile::cases()),
+            CarbonImmutable::parse($this->at('2026-10-05 09:02')),
+        );
     }
 
     /**

@@ -7,6 +7,7 @@ namespace Tests\Feature\Reports;
 use App\Domain\Reports\ReportBuilder;
 use App\Domain\Reports\ReportData;
 use App\Enums\PeriodType;
+use App\Enums\TaskStatus;
 use App\Enums\WeekStart;
 use App\Models\Project;
 use App\Services\Settings;
@@ -165,7 +166,7 @@ class ReportBuilderTest extends TestCase
     {
         $task = TaskHistory::make($this->project, 'Backdated', [['in_progress', '2026-09-29']], createdOn: '2026-09-28');
         // Logged today, about last Friday.
-        app(TaskStatusService::class)->log($task, \App\Enums\TaskStatus::Done, null, CarbonImmutable::parse('2026-10-02'));
+        app(TaskStatusService::class)->log($task, TaskStatus::Done, null, CarbonImmutable::parse('2026-10-02'));
 
         $this->assertSame([], $this->titles($this->weekly()->completed));
         $this->assertSame(['Backdated'], $this->titles($this->weekly('2026-10-02')->completed));

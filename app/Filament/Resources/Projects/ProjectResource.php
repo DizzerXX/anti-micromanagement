@@ -50,11 +50,11 @@ class ProjectResource extends Resource
                     ]),
                 Textarea::make('description')
                     ->label('Description')
-                    ->helperText('Optional. A line on what this project is for.')
+                    ->belowLabel('Optional. A line on what this project is for.')
                     ->rows(3),
                 Toggle::make('is_pinned')
                     ->label('Pin to sidebar')
-                    ->helperText('Pinned projects show under Pinned projects with their open-task count.'),
+                    ->belowLabel('Pinned projects show under Pinned projects with their open-task count.'),
             ]);
     }
 

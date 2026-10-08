@@ -33,12 +33,12 @@ final class TaskForm
                 ]),
             Select::make('module_id')
                 ->label('Module')
-                ->helperText('Optional. Tasks without one sit under No module.')
+                ->belowLabel('Optional. Tasks without one sit under No module.')
                 ->placeholder('No module')
                 ->options(fn (): array => $project->modules()->pluck('name', 'id')->all()),
             DatePicker::make('due_date')
                 ->label('Due')
-                ->helperText('Optional. Late tasks show under Overdue.')
+                ->belowLabel('Optional. Late tasks show under Overdue.')
                 ->native(true)
                 ->extraInputAttributes(['class' => 'ld-mono']),
         ];

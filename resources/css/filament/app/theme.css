@@ -1596,6 +1596,14 @@ html.fi,
     font-weight: 600;
 }
 
+.ld-num-table td.ld-tone-success {
+    color: var(--status-done-fg);
+}
+
+.ld-num-table td.ld-secondary {
+    color: var(--color-text-secondary);
+}
+
 /* Generating and failure states */
 
 .ld-state {
@@ -1990,6 +1998,8 @@ html.fi,
 
 .fi-no-notification .fi-no-notification-actions {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 8px;
 }
 
@@ -2058,8 +2068,27 @@ html.fi,
 }
 
 .fi-fo-field-label-content {
+    font-size: var(--text-14);
     font-weight: 600;
     color: var(--color-ink);
+}
+
+.fi-fo-field .fi-sc-text,
+.fi-fo-field-wrp-helper-text,
+.fi-fo-field .fi-sc-component:has(> .fi-sc-text) {
+    font-size: var(--text-13);
+    color: var(--color-text-muted);
+}
+
+.fi-input,
+.fi-select-input,
+.fi-fo-field .fi-input-wrp-label {
+    font-size: var(--text-14);
+}
+
+.fi-fo-field-wrp-error-message {
+    font-size: var(--text-13);
+    color: var(--status-danger-fg);
 }
 
 .fi-modal-window {

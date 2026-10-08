@@ -38,9 +38,9 @@ class ReportWorkbook implements Export, WithMultipleSheets
             ['Status', $period->isPartial() ? ucfirst($period->type->unitLabel()).' in progress' : 'Complete'],
             ['Compared with', Dates::range($d->previous->start, $d->previous->end, year: true)],
             ['Generated', SheetDate::cell($d->generatedAt, withTime: true)],
-            [],
+            [null],
             ['Summary', $d->summary],
-            [],
+            [null],
             ['Metric', 'This '.$period->type->unitLabel(), 'Previous', 'Change'],
         ];
         foreach ($d->headline as $metric) {
