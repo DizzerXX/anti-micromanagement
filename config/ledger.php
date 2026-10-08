@@ -27,6 +27,11 @@ return [
     'undo_seconds' => 60,
 
     /*
+    | Seed the mockup projects on first start (Docker), for a guided look.
+    */
+    'seed_sample_data' => (bool) env('LEDGER_SEED_SAMPLE_DATA', false),
+
+    /*
     | Shown under the brand in the sidebar.
     */
     'host_label' => env('LEDGER_HOST_LABEL', 'localhost:8080'),

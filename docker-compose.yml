@@ -1,0 +1,21 @@
+services:
+  ledger:
+    build: .
+    image: ledger:latest
+    env_file: .env
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: http://localhost:8080
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /data/database.sqlite
+      LEDGER_REPORTS_PATH: /data/reports
+      LOG_CHANNEL: stderr
+    ports:
+      - "8080:8080"
+    volumes:
+      - ledger-data:/data
+    restart: unless-stopped
+
+volumes:
+  ledger-data:

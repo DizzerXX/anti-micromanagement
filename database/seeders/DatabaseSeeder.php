@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
 
-        if (! app()->environment('production') || (bool) env('LEDGER_SEED_SAMPLE_DATA', false)) {
+        if (! app()->environment('production') || (bool) config('ledger.seed_sample_data')) {
             $this->call(SampleDataSeeder::class);
         }
     }

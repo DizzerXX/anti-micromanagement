@@ -32,7 +32,7 @@ return [
 
         'reports' => [
             'driver' => 'local',
-            'root' => storage_path('app/reports'),
+            'root' => env('LEDGER_REPORTS_PATH', storage_path('app/reports')),
             'throw' => true,
             'report' => false,
         ],
