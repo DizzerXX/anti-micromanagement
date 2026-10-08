@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// All pages live in the Filament panel (app/Providers/Filament/AppPanelProvider.php).

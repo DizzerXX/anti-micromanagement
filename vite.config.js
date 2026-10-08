@@ -6,11 +6,14 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js', 'resources/css/filament/admin/theme.css'],
+            input: ['resources/css/app.css', 'resources/js/app.js', 'resources/css/filament/app/theme.css'],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
+                bunny('IBM Plex Sans', {
                     weights: [400, 500, 600],
+                }),
+                bunny('IBM Plex Mono', {
+                    weights: [400, 500],
                 }),
             ],
         }),

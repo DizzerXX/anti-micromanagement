@@ -1,0 +1,121 @@
+/*
+ * Ledger design tokens.
+ * Copied from docs/design/tokens.css (fonts are self-hosted by Vite, so the
+ * Google Fonts import is dropped). Filament toggles dark mode with `.dark`.
+ * Contrast values were checked against WCAG 2.x (text ≥ 4.5:1, controls ≥ 3:1).
+ */
+
+
+:root {
+  /* Type */
+  --font-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --text-12: 12px;  --leading-12: 16px;  /* captions, uppercase labels, mono meta */
+  --text-13: 13px;  --leading-13: 18px;  /* paths, helper text */
+  --text-14: 14px;  --leading-14: 20px;  /* body, tables, fields */
+  --text-16: 16px;  --leading-16: 24px;  /* card headings, report summary */
+  --text-20: 20px;  --leading-20: 28px;  /* panel titles */
+  --text-24: 24px;  --leading-24: 32px;  /* report title */
+  --text-32: 32px;  --leading-32: 40px;  /* page title, stat values */
+
+  /* Spacing (4px base) */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;  --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px;
+
+  /* Radius */
+  --radius-sm: 4px;    /* kbd, print boxes */
+  --radius-md: 8px;    /* controls */
+  --radius-lg: 10px;   /* cards */
+  --radius-pill: 999px;/* badges */
+
+  /* Neutrals, light */
+  --color-bg: #F5F4EF;
+  --color-surface: #FFFFFF;
+  --color-sunk: #EFEDE6;
+  --color-border: #DDDAD0;          /* decorative dividers */
+  --color-control-border: #8A877D;  /* inputs, outlined buttons: 3.6:1 */
+  --color-text-muted: #66645C;      /* 5.9:1 on surface */
+  --color-text-secondary: #57554E;  /* 7.5:1 */
+  --color-text: #2B2A26;            /* 14.4:1 */
+  --color-ink: #1C1B18;             /* primary button fill, headings */
+  --color-on-ink: #FFFFFF;
+
+  /* Status (text on fill), light */
+  --status-todo-fg: #57554E;     --status-todo-bg: #ECEAE3;     /* 6.2:1 */
+  --status-progress-fg: #1D4FA3; --status-progress-bg: #E3ECFA; /* 6.5:1 */
+  --status-blocked-fg: #9A4A00;  --status-blocked-bg: #FBEBD9;  /* 5.4:1 */
+  --status-done-fg: #1E6B43;     --status-done-bg: #E2F2E8;     /* 5.6:1 */
+  --status-danger-fg: #A8261B;   --status-danger-bg: #FBE5E2;   /* 5.9:1, overdue + reopened */
+
+  /* Stacked-bar segment fills (non-text) */
+  --bar-done: #1E6B43;
+  --bar-progress: #1D4FA3;
+  --bar-blocked: #D97A1E;
+  --bar-todo: #8A877D;
+}
+
+.dark {
+  --color-bg: #141412;
+  --color-surface: #1C1B18;
+  --color-sunk: #23221E;
+  --color-border: #33312C;
+  --color-control-border: #6B6962;  /* 3.1:1 */
+  --color-text-muted: #A6A398;      /* 6.8:1 */
+  --color-text-secondary: #BAB7AC;
+  --color-text: #E2E0D8;            /* 13:1 */
+  --color-ink: #EDEBE4;
+  --color-on-ink: #1C1B18;
+
+  --status-todo-fg: #BAB7AC;     --status-todo-bg: #2A2925;     /* 7.3:1 */
+  --status-progress-fg: #8DB4F5; --status-progress-bg: #1C2A40; /* 6.9:1 */
+  --status-blocked-fg: #F0B070;  --status-blocked-bg: #3A2814;  /* 7.5:1 */
+  --status-done-fg: #7ACB9C;     --status-done-bg: #16301F;     /* 7.4:1 */
+  --status-danger-fg: #F59A8F;   --status-danger-bg: #3D1A16;   /* 7.3:1 */
+
+  --bar-done: #7ACB9C;
+  --bar-progress: #8DB4F5;
+  --bar-blocked: #F0B070;
+  --bar-todo: #6B6962;
+}
+
+/*
+ * Values the mockups use that tokens.css does not name. Kept here so Blade
+ * and PHP never carry raw hex.
+ */
+:root {
+  --status-blocked-ink: #5E2E00;     /* text on blocked fill, note boxes */
+  --status-blocked-strong: #7A3A00;  /* selected Blocked tile, blocker line */
+  --color-rule: #C9C5B8;             /* table rules in the report preview */
+  --color-row-divider: #EFEDE6;      /* row dividers inside cards */
+  --color-disabled-text: #A6A398;
+  --color-scrim: rgba(28, 27, 24, 0.45);
+  --shadow-panel: -12px 0 32px rgba(28, 27, 24, 0.18);
+  --shadow-toast: 0 8px 24px rgba(28, 27, 24, 0.22);
+  --shadow-segment: 0 1px 2px rgba(28, 27, 24, 0.12);
+  --toast-bg: #1C1B18;
+  --toast-text: #EDEBE4;
+  --toast-border: #57554E;
+  --toast-muted: #A6A398;
+  --toast-success: #7ACB9C;
+  --kbd-on-ink-border: #6B6962;
+  --kbd-on-ink-text: #E2E0D8;
+}
+
+.dark {
+  --status-blocked-ink: #F0B070;
+  --status-blocked-strong: #F0B070;
+  --color-rule: #4A4842;
+  --color-row-divider: #2A2925;
+  --color-disabled-text: #6B6962;
+  --color-scrim: rgba(0, 0, 0, 0.6);
+  --shadow-panel: -12px 0 32px rgba(0, 0, 0, 0.5);
+  --shadow-toast: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-segment: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --toast-bg: #EDEBE4;
+  --toast-text: #1C1B18;
+  --toast-border: #8A877D;
+  --toast-muted: #57554E;
+  --toast-success: #1E6B43;
+  --kbd-on-ink-border: #8A877D;
+  --kbd-on-ink-text: #2B2A26;
+}
