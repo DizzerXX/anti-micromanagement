@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger · Empty, loading and error states</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#F5F4EF}
+a{color:#1C1B18}a:hover{color:#57554E}
+</style>
+</head>
+<body>
+<div style="min-height: 100vh; box-sizing: border-box; padding: 48px 32px; background: #F5F4EF; color: #2B2A26; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 20px">
+  <div style="max-width: 1376px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px">
+
+    <section aria-labelledby="s1" style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: #57554E">TODAY · FIRST RUN</span>
+      <div style="flex: 1; box-sizing: border-box; min-height: 520px; padding: 40px 28px; background: #FFFFFF; border: 1px solid #DDDAD0; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center">
+        <div style="width: 56px; height: 56px; border-radius: 999px; background: #EFEDE6; display: flex; align-items: center; justify-content: center; color: #1C1B18"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+        <h2 id="s1" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #1C1B18">Start with a project</h2>
+        <p style="margin: 0; max-width: 32ch; color: #57554E">Projects hold modules and tasks. Your first report appears once you have logged a few updates.</p>
+        <button style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: #1C1B18; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Create project</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="s2" style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: #57554E">REPORT PREVIEW · NO UPDATES IN PERIOD</span>
+      <div style="flex: 1; box-sizing: border-box; min-height: 520px; padding: 40px 28px; background: #FFFFFF; border: 1px solid #DDDAD0; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center">
+        <div style="width: 56px; height: 56px; border-radius: 999px; background: #EFEDE6; display: flex; align-items: center; justify-content: center; color: #1C1B18"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4M9 12h6M9 16h6"></path></svg></div>
+        <h2 id="s2" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #1C1B18">Nothing logged 12 – 18 Oct</h2>
+        <p style="margin: 0; max-width: 34ch; color: #57554E">Reports are built from the updates you log. Log one first, or open a week that has activity.</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+          <button style="height: 40px; padding: 0 14px; border: 1px solid #8A877D; border-radius: 8px; background: #FFFFFF; color: #1C1B18; font: inherit; font-weight: 500; cursor: pointer">Log update</button>
+          <a href="Reports.html" style="display: inline-flex; align-items: center; height: 40px; padding: 0 6px; font-weight: 500">Go to 5 – 11 Oct (23 updates)</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s3" style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: #57554E">GENERATING · 1–10 S</span>
+      <div style="flex: 1; box-sizing: border-box; min-height: 520px; padding: 28px; background: #FFFFFF; border: 1px solid #DDDAD0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; gap: 20px">
+        <h2 id="s3" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #1C1B18">Generating report</h2>
+        <div role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="2" aria-label="Report generation, step 3 of 4" style="height: 8px; border-radius: 999px; background: #EFEDE6; overflow: hidden"><div style="width: 62%; height: 100%; background: #1C1B18"></div></div>
+        <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px">
+          <li style="display: flex; align-items: center; gap: 10px; color: #2B2A26"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E6B43" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>Read 23 updates, 5 – 8 Oct</li>
+          <li style="display: flex; align-items: center; gap: 10px; color: #2B2A26"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E6B43" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>Compared with 28 Sep – 4 Oct</li>
+          <li style="display: flex; align-items: center; gap: 10px; color: #1C1B18; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1B18" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M12 3a9 9 0 1 1-9 9"></path></svg>Building PDF</li>
+          <li style="display: flex; align-items: center; gap: 10px; color: #66645C"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle></svg>Building spreadsheet</li>
+        </ol>
+        <button style="align-self: flex-start; height: 40px; padding: 0 14px; border: 1px solid #8A877D; border-radius: 8px; background: #FFFFFF; color: #1C1B18; font: inherit; font-weight: 500; cursor: pointer">Cancel</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="s4" style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.05em; color: #57554E">PARTIAL FAILURE</span>
+      <div style="flex: 1; box-sizing: border-box; min-height: 520px; padding: 28px; background: #FFFFFF; border: 1px solid #DDDAD0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; gap: 16px">
+        <div style="display: flex; align-items: center; gap: 10px; color: #A8261B"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2.5 20h19z"></path><path d="M12 10v4M12 17v.5"></path></svg><span style="font-weight: 600">PDF failed</span></div>
+        <h2 id="s4" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; color: #1C1B18">Spreadsheet saved. PDF didn’t build.</h2>
+        <p style="margin: 0; color: #2B2A26">The PDF renderer ran out of memory on the By project table. Raise <code style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 0 4px; background: #EFEDE6; border-radius: 4px">memory_limit</code> to 256M, then retry. The spreadsheet is already in History.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button style="height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: #1C1B18; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer">Retry PDF</button>
+          <button style="height: 40px; padding: 0 14px; border: 1px solid #8A877D; border-radius: 8px; background: #FFFFFF; color: #1C1B18; font: inherit; font-weight: 500; cursor: pointer">Download spreadsheet</button>
+        </div>
+        <details style="color: #57554E">
+          <summary style="cursor: pointer; font-weight: 500">Technical details</summary>
+          <pre style="margin: 8px 0 0; padding: 10px; background: #F5F4EF; border-radius: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 18px; white-space: pre-wrap; color: #2B2A26">Allowed memory size of 134217728 bytes exhausted</pre>
+        </details>
+      </div>
+    </section>
+  </div>
+</div>
+</body>
+</html>
