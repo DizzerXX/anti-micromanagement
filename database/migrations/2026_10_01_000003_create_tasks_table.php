@@ -19,6 +19,8 @@ return new class extends Migration
             $table->enum('current_status', ['todo', 'in_progress', 'blocked', 'done'])->default('todo');
             $table->date('last_logged_for');
             $table->timestamps();
+            // Deleting a task hides it; its events stay (append-only history).
+            $table->softDeletes();
 
             $table->index(['project_id', 'current_status']);
         });

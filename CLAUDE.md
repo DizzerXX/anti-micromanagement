@@ -15,9 +15,35 @@ weekly reports (on screen, PDF, XLSX) compared with the previous period.
 - `docs/design/mockups/*.html` — the same screens as HTML, for exact copy and
   spacing. Visual reference only: never copy this markup into the app.
 
+## Where things live
+
+- Domain: `app/Services/TaskStatusService.php` (only status writer),
+  `app/Domain/StatusTimeline.php` (replay), `app/Domain/Reports/*`
+  (`ReportBuilder`, `ReportData`, `SummarySentence`, `ReportGenerator`, exporters).
+- UI: `app/Providers/Filament/AppPanelProvider.php` (panel, nav, hooks),
+  `app/Filament/Pages` (Today, Reports, Settings), `app/Filament/Resources`
+  (Projects, Tasks list), `app/Livewire` (LogUpdate slide-over, Topbar,
+  project tabs), `resources/views/components/ld/*` (badge, icon, rows).
+- Theme: `resources/css/filament/app/theme.css` + `tokens.css` (copy of
+  `docs/design/tokens.css`); icons traced from the mockups in `resources/svg/ledger`.
+- PDF: `resources/views/reports/pdf.blade.php`, `resources/pdf/report.css`
+  (dompdf: no CSS variables or flexbox, line-heights divided by 1.43),
+  fonts in `resources/fonts`.
+
 If code and SPEC disagree, stop and ask. Do not silently pick one.
 
 ## Stack
+
+Installed (checked with Composer on 2026-10-08):
+
+| Piece | Version |
+| --- | --- |
+| PHP | 8.4 (local and Docker `php:8.4-fpm-alpine`) |
+| Laravel | 13.35 |
+| Filament | 5.10.1 (Livewire 4.4) — v5 APIs: `Filament\Schemas\Schema`, `Filament\Actions\*` |
+| barryvdh/laravel-dompdf | 3.1 (dompdf 3.1) |
+| maatwebsite/excel | 4.0.3 (PhpSpreadsheet 5.10) |
+| Tests | PHPUnit 12 (the skeleton's choice) |
 
 - PHP 8.3+, latest stable Laravel, latest stable Filament that supports it.
   Verify versions with Composer before scaffolding; read the docs for the
@@ -75,11 +101,18 @@ Ask before adding any other Composer or npm package.
 ## Commands
 
 ```bash
+composer install && npm install  # dependencies
+npm run build                    # Filament theme + self-hosted IBM Plex (Vite)
 php artisan test                 # all tests
 php artisan test --filter=Report # report engine tests
 ./vendor/bin/pint                # format
-php artisan migrate:fresh --seed # reset local DB with sample data
-docker compose up --build        # run in Docker (Phase 5+)
+php artisan migrate:fresh --seed # reset local DB with sample data (user from .env)
+php artisan serve --port=8080    # run locally
+php artisan ledger:install       # migrate + create the .env user (what Docker runs)
+docker compose up --build        # run in Docker on localhost:8080
 ```
+
+Force a file to fail (to see the partial-failure state): `LEDGER_FORCE_PDF_FAILURE=true`
+or `LEDGER_FORCE_XLSX_FAILURE=true` in `.env`.
 
 Update this section when the real commands change.

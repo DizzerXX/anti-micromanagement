@@ -11,6 +11,7 @@ use App\Livewire\ProjectTasks;
 use App\Models\Module;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\TaskEvent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -90,8 +91,11 @@ class ProjectTasksTest extends TestCase
         $this->assertNull($task->refresh()->module_id);
         $component->assertSee('No module');
 
+        $events = $task->events()->count();
         $component->callAction('deleteTask', arguments: ['task' => $task->id]);
-        $this->assertModelMissing($task);
+        $this->assertSoftDeleted($task);
+        $this->assertSame($events, TaskEvent::query()->where('task_id', $task->id)->count(), 'history is kept');
+        $component->assertDontSee('Compose file v2');
     }
 
     public function test_modules_tab_creates_and_deletes_modules(): void

@@ -38,7 +38,7 @@ update must take one keyboard shortcut, one choice and an optional note.
 
 ## 3. Data model
 
-All timestamps stored in UTC; all reporting dates are local dates in
+All timestamps stored in the app timezone (see §9.1); all reporting dates are local dates in
 `Asia/Kuala_Lumpur` (config `app.timezone`).
 
 ### projects
@@ -260,6 +260,47 @@ everything else muted.
 - Scheduled generation with catch-up on container start.
 - User-defined statuses.
 
-## 9. Open questions
+## 9. Decisions made while building (2026-10-08)
+
+Recorded here so code and spec agree. Change them here first if they change.
+
+1. **Timestamps** are stored in `Asia/Kuala_Lumpur` (the app timezone), not
+   UTC. Single user, single zone, no DST; dates and times read the same in
+   the database, screens and files.
+2. **Update** means a non-creation event (`from_status` not null). "Logged
+   today", "N updates" counts and the empty-period check use updates only. A
+   period with only task creations is empty. The Activity tab shows creation
+   events labelled "Created".
+3. **Backdated logs** are validated against the replayed status on
+   `logged_for`, and `from_status` stores that status. `logged_for` before the
+   task's creation date is refused.
+4. **Undo** applies to the task's most recently created event and never to the
+   creation event.
+5. **Deleting a task** is a soft delete (`tasks.deleted_at`). The task leaves
+   every list and new report; its events stay, so history remains
+   append-only.
+6. **`reports.files`** (json) records which file types were requested, so a
+   file that was not requested is not a failure and Retry knows what to build.
+7. **Report sections**: the preview and PDF follow the mockups, which list
+   Completed, Blocked + Reopened, Overdue + Stale and By project. Started is
+   shown in the headline and as its own XLSX sheet; the Started checkbox
+   controls that sheet.
+8. **Reopened** lists a task once, with its latest reopen in the period.
+   **Blocked** shows the note of the latest transition into Blocked (progress
+   notes while blocked don't replace it).
+9. **Overdue** only counts tasks that existed at E.
+10. **Filenames**: weekly uses the ISO week of the start date; one-project
+    reports add the project slug (`weekly-2026-W41-home-lab.pdf`); a name that
+    is taken gets `-2`, `-3`… so older files are never overwritten.
+11. **Summary sentence** wording for edge cases: no completions but fewer
+    than last time → "No tasks completed, 2 fewer than last week."; blocked for
+    0 days → "since today"; everything zero → "Nothing moved that week/day.";
+    singulars "1 is overdue", "1 has had no update".
+12. **Project table** shows "—" in Due for done tasks (as in the mockup).
+13. **Generating** runs one step per request (read, compare, PDF,
+    spreadsheet) so the progress bar is real; Cancel deletes files already
+    written and saves no row.
+
+## 10. Open questions
 
 None blocking. Record new ones here instead of guessing.

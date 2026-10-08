@@ -44,8 +44,8 @@ class TaskDetailsService
     }
 
     /**
-     * Removes the task and, by cascade, its history. Generated report files
-     * are not touched.
+     * Soft delete: the task leaves lists and new reports, its events stay.
+     * Generated report files are not touched.
      */
     public function delete(Task $task): void
     {

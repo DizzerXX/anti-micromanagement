@@ -12,8 +12,13 @@ Screen-by-screen detail is in `docs/design/HANDOFF.md`; values are in
 `docs/design/tokens.css`; pictures are in `docs/design/mockups/`.
 
 - Use Filament's own components first (tables, forms, actions, slide-overs,
-  notifications, stats widgets). Write custom Blade only for the Today page and
-  the report preview, and still reuse Filament components inside them.
+  notifications, stats widgets). Write custom Blade only for the Today page,
+  the report preview, the Log update slide-over and the project Tasks table
+  (those two need the mockup's grouped rows and status tiles), and still reuse
+  Filament components inside them (actions, dropdowns, notifications).
+- Shared pieces: `<x-ld.status-badge>`, `<x-ld.icon>` (icons in
+  `resources/svg/ledger`, also usable as Filament icons `ledger-<name>`),
+  `ld-*` classes in `resources/css/filament/app/theme.css`.
 - Reference tokens (CSS custom properties or the registered Filament colours),
   never raw hex values in Blade or PHP.
 - Status always renders as icon + label + colour. Never colour alone.

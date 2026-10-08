@@ -1,58 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ledger
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A personal daily and weekly report generator. Log short status updates on
+tasks; Ledger turns that history into a report compared with the previous
+period, on screen and as PDF and XLSX.
 
-## About Laravel
+Single user, runs on localhost. Laravel 13 + Filament 5, SQLite.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Run it with Docker
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cp .env.example .env          # set LEDGER_USER_EMAIL / LEDGER_USER_PASSWORD
+docker compose up --build
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Open <http://localhost:8080> and sign in with the email and password from
+`.env` (defaults: `me@ledger.test` / `password`). On every start the container
+runs migrations and makes sure that user exists. The app key is generated on
+first start and kept on the data volume.
 
-## Contributing
+To start with the sample projects from the design mockups, set
+`LEDGER_SEED_SAMPLE_DATA=true` in `.env` before the first start.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Data and backups
 
-## Code of Conduct
+Everything lives on the `ledger-data` volume, mounted at `/data`:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Path | What |
+| --- | --- |
+| `/data/database.sqlite` | all projects, tasks, updates, settings, report history |
+| `/data/reports/{yyyy}/` | generated PDF and XLSX files |
+| `/data/app_key` | the app key (sessions) |
 
-## Security Vulnerabilities
+Back up by copying the SQLite file and the reports folder. With the container
+running:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+docker compose exec ledger sqlite3 /data/database.sqlite ".backup /data/backup.sqlite"
+docker compose cp ledger:/data/backup.sqlite ./ledger-backup.sqlite
+docker compose cp ledger:/data/reports ./ledger-reports
+```
 
-## License
+Restore by copying them back to the same paths and restarting. `docker compose
+down` keeps the volume; `docker compose down -v` deletes it.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Run it locally
+
+Needs PHP 8.3+ (with `intl`, `zip`, `gd`, `pdo_sqlite`), Composer and Node 20.
+
+```bash
+composer install && npm install && npm run build
+cp .env.example .env && php artisan key:generate
+php artisan migrate:fresh --seed   # user from .env + sample data
+php artisan serve --port=8080
+```
+
+## Using it
+
+- **L** opens *Log update* anywhere; **/** focuses search; **Ctrl+Enter** saves
+  the open panel; **Esc** closes it.
+- **Today** shows this week against last week, tasks that need an update, what
+  you logged today, blocked and due tasks, and the last report.
+- **Projects** hold optional modules and tasks. Row **Log** opens the panel with
+  the task filled in.
+- **Reports › New report** previews the report live; **Generate** writes PDF and
+  XLSX to History. If one file fails the other is kept and you can retry.
+- **Settings**: the day weeks start on, and after how many days an in-progress
+  task counts as stale.
+
+## Development
+
+```bash
+php artisan test        # 100+ tests against a real SQLite database
+./vendor/bin/pint       # format
+```
+
+Product rules: `docs/SPEC.md`. Build plan: `docs/PLAN.md`. Design:
+`docs/design/HANDOFF.md` and the mockups in `docs/design/`. Notes for coding
+agents: `CLAUDE.md`.
+
+IBM Plex fonts are under the SIL Open Font License (`resources/fonts/OFL.txt`).

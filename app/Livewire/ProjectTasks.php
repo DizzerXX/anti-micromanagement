@@ -142,7 +142,7 @@ class ProjectTasks extends Component implements HasActions, HasSchemas
             ->modalDescription(function (array $arguments): string {
                 $updates = $this->findTask($arguments)->events()->whereNotNull('from_status')->count();
 
-                return 'This removes the task and its '.$updates.' '.($updates === 1 ? 'update' : 'updates').' from every new report. Report files already generated are not changed.';
+                return 'It disappears from this project and from new reports, with its '.$updates.' '.($updates === 1 ? 'update' : 'updates').'. The history is kept, and report files already generated are not changed.';
             })
             ->modalSubmitActionLabel('Delete task')
             ->action(function (array $arguments): void {

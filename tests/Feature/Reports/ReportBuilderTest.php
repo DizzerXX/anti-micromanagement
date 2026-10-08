@@ -10,7 +10,9 @@ use App\Enums\PeriodType;
 use App\Enums\TaskStatus;
 use App\Enums\WeekStart;
 use App\Models\Project;
+use App\Models\TaskEvent;
 use App\Services\Settings;
+use App\Services\TaskDetailsService;
 use App\Services\TaskStatusService;
 use Carbon\CarbonImmutable;
 use Database\Factories\TaskHistory;
@@ -348,5 +350,18 @@ class ReportBuilderTest extends TestCase
         TaskHistory::make($this->project, 'Idle', [['in_progress', '2026-09-30']], createdOn: '2026-09-28');
 
         $this->assertSame('No tasks completed, 1 fewer than last week. 1 has had no update for 3 days or more.', $this->weekly()->summary);
+    }
+
+    public function test_deleted_tasks_leave_reports_but_keep_their_events(): void
+    {
+        $task = TaskHistory::make($this->project, 'Gone', [['done', '2026-10-06']], createdOn: '2026-10-01');
+        TaskHistory::make($this->project, 'Kept', [['done', '2026-10-06']], createdOn: '2026-10-01');
+
+        app(TaskDetailsService::class)->delete($task);
+
+        $data = $this->weekly();
+        $this->assertSame(['Kept'], $this->titles($data->completed));
+        $this->assertSame(1, $data->updates);
+        $this->assertSame(2, TaskEvent::query()->where('task_id', $task->id)->count());
     }
 }

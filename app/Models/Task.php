@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -29,6 +30,12 @@ class Task extends Model
 {
     /** @use HasFactory<TaskFactory> */
     use HasFactory;
+
+    /**
+     * Deleting hides the task everywhere but keeps its events, so history
+     * stays append-only (CLAUDE.md, non-negotiable 1).
+     */
+    use SoftDeletes;
 
     /**
      * `current_status` and `last_logged_for` are caches written only by
